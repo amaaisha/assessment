@@ -1,0 +1,31 @@
+.number-converter{
+  text-align: center;
+  position: relative;
+  top: 280px;
+  right: 6px;
+  font-family: Helvetica Arial sans-serif;
+  font-size: 1.2em;
+
+}
+
+.number-box{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  padding: 300px 0 300px 0;
+
+}
+
+.button{
+  position: relative;
+  left: 110px;
+  bottom: 21px;
+  padding: 1px 1px 1px 1px;
+  background-color: black;
+  color: white;
+  font-family: Helvetica Arial sans-serif;
+  font-weight: bolder;
+}
+
+

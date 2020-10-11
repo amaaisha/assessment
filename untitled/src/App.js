@@ -1,33 +1,35 @@
-import React, {FC, useState} from 'react';
-import './NumberConverter.css';
+import React, {useState} from 'react';
 
 
-const App: FC<{}> = () => {
-
+const App = () => {
   //Define state of values and submit
-  const [value, setValue] = useState<string>('');
-  const [submit, setSubmit] = useState<boolean>(false);
-  const [result, setResult] = useState<any>('');
+  const [value, setValue] = useState('')
+  const [submit, setSubmit] = useState(false)
+  const [result, setResult] = useState('')
 
+
+  //1-19
   const oneToNineteen = ['','one ','two ','three ','four ', 'five ','six ','seven ','eight ','nine ','ten ',
-    'eleven ','twelve ','thirteen ','fourteen ','fifteen ','sixteen ','seventeen ','eighteen ','nineteen '
+      'eleven ','twelve ','thirteen ','fourteen ','fifteen ','sixteen ','seventeen ','eighteen ','nineteen '
   ];
 
-  const num: string[] = [''];
-
-  num.splice(1, 1, value)
+  const num = [''];
+  num.splice(1, 1, value);
 
   const words = num[1] !== "0" && oneToNineteen[Number(num[1])];
 
+
   //Event handler for values
-  const handleChange = (event: any)  => {
+  const handleChange = (event)  => {
     setValue(event.target.value)
   };
 
   //Event handler for submit
   const handleSubmit = () => {
     setSubmit(true)
-    setResult(words);
+    setResult(words)
+
+
   };
 
   return (
@@ -39,7 +41,7 @@ const App: FC<{}> = () => {
 
         {/*To show submit result*/}
         {submit &&
-          <p placeholder={'Words'}>{result}</p>
+        <p placeholder={'Words'}>{result}</p>
         }
       </div>
     </>
