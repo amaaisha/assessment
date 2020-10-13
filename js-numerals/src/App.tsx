@@ -6,7 +6,7 @@ const App:FC = () => {
   const [input, setInput] = useState();
   const [output, setOutput] = useState();
 
-  //1-9
+  //1-19
   let belowTwenty = ["", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten", "eleven", "twelve", "thirteen", "fourteen", "fifteen", "sixteen", "Seventeen", "Eighteen", "Nineteen"];
 
   //20-90
