@@ -13,10 +13,18 @@ const App = () => {
       'eleven ','twelve ','thirteen ','fourteen ','fifteen ','sixteen ','seventeen ','eighteen ','nineteen '
   ];
 
+  const tens = ['', '', 'twenty','thirty','forty','fifty', 'sixty','seventy','eighty','ninety'];
+
   const num = [''];
   num.splice(1, 1, value);
 
-  const words = num[1] !== "0" && oneToNineteen[Number(num[1])];
+  // oneToNineteen and tens
+  const words = num[1] !== "0" ? oneToNineteen[Number(num[1])] ||
+    `${tens[(num[1][0])]} ${oneToNineteen[num[1][1]]}` : '';
+
+
+  // const words = num[1] !== "0" && oneToNineteen[Number(num[1])];
+
 
 
   //Event handler for values

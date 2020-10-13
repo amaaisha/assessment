@@ -1,46 +1,85 @@
 import React, {FC, useState} from 'react';
-import './NumberConverter.css';
 
+const App:FC = () => {
+  const [input, setInput] = useState();
+  const [output, setOutput] = useState();
 
-const App: FC<{}> = () => {
+  const converter = (value:number) => {
 
-  //Define state of values and submit
-  const [value, setValue] = useState<string>('');
-  const [submit, setSubmit] = useState<boolean>(false);
-  const [result, setResult] = useState<any>('');
+    if (!isValid(value)) {
+      return false;
+    }
 
-  const oneToNineteen = ['','one ','two ','three ','four ', 'five ','six ','seven ','eight ','nine ','ten ',
-    'eleven ','twelve ','thirteen ','fourteen ','fifteen ','sixteen ','seventeen ','eighteen ','nineteen '
-  ];
+    let billion = Math.floor(value / 1000000000);
+    value -= billion * 1000000000;
 
-  const num: string[] = [''];
+    let million = Math.floor(value / 1000000);
+    value -= million * 1000000;
 
-  num.splice(1, 1, value)
+    let thousand = Math.floor(value / 1000);
+    value -= thousand * 1000;
 
-  const words = num[1] !== "0" && oneToNineteen[Number(num[1])];
+    let hundred = Math.floor(value / 100);
+    value = value % 100;
 
-  //Event handler for values
-  const handleChange = (event: any)  => {
-    setValue(event.target.value)
-  };
+    let ten = Math.floor(value / 10);
 
-  //Event handler for submit
-  const handleSubmit = () => {
-    setSubmit(true)
-    setResult(words);
-  };
+    let one = Math.floor(value % 10);
+
+    let words = "";
+
+    if (billion > 0) {
+      words += (converter(billion) + " billion");
+    }
+
+    if (million > 0) {
+      words += (((words === "") ? "" : " ") + converter(million) + " million");
+    }
+
+    if (thousand > 0) {
+      words += (((words === "") ? "" : " ") + converter(thousand) + " thousand");
+    }
+
+    if (hundred) {
+      words += (((words === "") ? "" : " ") + converter(hundred) + " hundred");
+    }
+
+    let belowTwenty = ["", "one", "two", "three", "four", "five", "six", "seven", "eight", "nine", "ten", "eleven", "twelve", "thirteen", "fourteen", "fifteen", "sixteen", "Seventeen", "Eighteen", "Nineteen"];
+    let tens = ["", "", "twenty", "thirty", "forty", "fifty", "sixty", "seventy", "eighty", "ninety"];
+
+    if (ten > 0 || one > 0) {
+      if (words !== "") {
+        words += " and ";
+      }
+      if (ten < 2) {
+        words += belowTwenty[ten * 10 + one];
+      } else {
+        words += tens[ten];
+        if (one > 0) {
+          words += ("-" + belowTwenty[one]);
+        }
+      }
+    }
+
+    setOutput(words)
+    return words;
+  }
+
+  const isValid = (value: string | number) =>{
+    if (!value || value === '' || value < 0 || value > 1000000000 || isNaN(value as number)) {
+      setOutput(`Input '${value}' must be a number greater than 0 or less than a billion`)
+      return false;
+    }
+    return true
+  }
 
   return (
     <>
       <div  className={"number-converter"}>Number Converter</div>
       <div  className={"number-box"}>
-        <input type={'text'} placeholder={'Number'} onChange={handleChange} />
-        <button className={"button"} onClick={handleSubmit} type={'submit'}>Submit</button>
-
-        {/*To show submit result*/}
-        {submit &&
-          <p placeholder={'Words'}>{result}</p>
-        }
+      <input onChange={(e) => setInput(e.target.value)}/>
+        <button onClick={() => converter(input)}>Submit</button>
+        {output && <p>Output: {output}</p>}
       </div>
     </>
   );
